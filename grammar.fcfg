@@ -1,0 +1,72 @@
+% start S
+
+S[INV = '-inv', ARG=?a] -> NP[SEM="PER"] VP[VFORM = ?v, ACT="active", ARG= ?a] 
+S[INV = '-inv', ARG=?a] -> NP[SEM ="OBJ"] VP[VFORM = ?v, ACT="passive" , ARG= ?a]
+S[INV = '-inv', ARG=?a] -> NP[SEM="TRANSPORTVEHICAL"]  VP[VFORM = ?v, ACT="transport", ARG= ?a, SEM = "TRANSPORT"] 
+S[INV='+inv', ARG=?a] -> S[INV = '-inv', ARG=?a] YNQ[]
+
+
+
+NP[SEM=?s, ARG=?a] -> N[SEM=?s, ARG = ?a]
+NP[SEM="OBJ", ARG=?a] -> DET N[SEM="OBJ", ARG = ?a] ADJP
+NP[SEM="OBJ", ARG=?a] -> N[SEM="OBJ", ARG = ?a] ADJP
+NP[SEM="PER", ARG=?a] -> PRO[ARG = ?a]
+NP[SEM="TRANSPORT"] -> V[VFORM = "base", SUBCAT="NP", SEM="LOCATION"] NP[SEM="LOCATION"]
+NP[SEM="TRANSPORT"] -> V[VFORM = "base", SUBCAT="NP_PP-TIME", SEM="LOCATION"] NP[SEM="LOCATION"] PP[SEM="TIME"]
+
+
+PP[SEM="TIME", ARG="None"] -> P-TIME TIME
+PP[SEM="TIME", ARG="None"] -> ART[FIX="FROM"] TIME ART[FIX="TO"] TIME
+
+
+VP[VFORM = ?v, ACT = "active",  ARG = ?a , SUBCAT="NP"] -> V[VFORM = ?v, SUBCAT="NP", SEM = ?s] NP[ARG=?a, SEM = ?s]
+VP[VFORM = ?v, ACT = "active",  ARG = ?a , SUBCAT="NP_PP-TIME"] -> V[VFORM = ?v, SUBCAT="NP_PP-TIME", SEM = ?s] NP[ARG=?a, SEM = ?s] PP[SEM="TIME"]
+VP[VFORM = ?v, ACT = "transport",  ARG = ?a , SUBCAT="NP", SEM = ?s] -> V[VFORM = ?v, SUBCAT="NP", SEM = ?s] NP[ARG=?a, SEM = ?s]
+
+
+VP[VFORM = ?v, ACT = "active", SUBCAT="ADVP"] -> V[SUBCAT="ADVP"] ADVP
+
+
+V[VFORM = "future", SUBCAT = ?sc, SEM = ?s] -> ART[FIX="WILL"] V[VFORM="base", SUBCAT = ?sc, SEM=?s]
+V[VFORM = "past", SUBCAT = ?sc, SEM = ?s] -> ART[FIX="PAST"] V[VFORM="base", SUBCAT = ?sc, SEM=?s]
+V[VFORM = "pastperfect", SUBCAT = ?sc, SEM = ?s] -> ART[FIX="PASTPERFECT"] V[VFORM="base", SUBCAT = ?sc, SEM=?s]
+V[VFORM = "freq", SUBCAT = ?sc, SEM = ?s] -> P-FREQ V[VFORM="base", SUBCAT = ?sc, SEM=?s]
+
+
+ADVP[SEM="TOO"] -> ADJ ART[FIX="TOO"]
+ADVP[] -> ADJ
+
+ADJP[SEM="COLOR"] -> "màu" "xanh" | "màu" "đỏ"
+
+
+N[SEM="TRANSPORTVEHICAL"] -> "máy" "bay" | "xe" "bus" | "tàu" "hỏa"
+N[SEM="LOCATION"] -> "Hà" "Nội" | "Hồ" "Chí" "Minh" | "Đà" "Nẵng"
+N[SEM="OBJ", SUBCAT = "ADJP"] -> "cái" "bàn" |  "cuốn" "sách"
+
+
+PRO[ARG = '1s'] -> 'tôi' | 'ảnh' | "cô" "ấy"
+PRO[ARG = '3p'] -> 'họ'
+
+ADJ[] -> "nhanh"
+
+ART[FIX="WILL"] -> "sẽ"
+ART[FIX="TOO"] -> "quá"
+ART[FIX="FROM"] -> "từ"
+ART[FIX="TO"] -> "đến"
+ART[FIX="PAST"] -> "đã"
+ART[FIX="PASTPERFECT"] -> "đã" "từng"
+
+P-TIME  -> "vào" "lúc" | "lúc" 
+P-FREQ -> "chưa" "từng" | "thỉnh" "thoảng"
+TIME -> "13:30" | "20:10" | "7:30"
+
+DET -> "những" | "một"
+
+
+V[VFORM = "base", SUBCAT="ADVP"] -> "đi"
+V[VFORM = "base", SUBCAT="NP" , SEM="LOCATION"] -> "đi"
+V[VFORM = "base", SUBCAT="NP_PP-TIME" , SEM="LOCATION"] -> "đi"
+V[VFORM = "base", SUBCAT="NP", SEM = "OBJ"] -> "thích"
+V[VFORM = "base", SUBCAT="NP", SEM = "TRANSPORT"] -> "khởi" "hành" | "xuất" "phát"
+
+YNQ[] -> "đúng" "không"
